@@ -1,10 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+const axios = require('axios');
+
 class Submission extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-  };
+    this.state = {
+      username: '',
+      entry: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(name, event) {
+    if (name === 'username') {
+      this.setState({
+        username: event.target.value,
+      });
+    } else {
+      this.setState({
+        entry: event.target.value,
+      });
+    }
+  }
+
+  handleSubmit(event) {
+    // axios.post('')
+  }
 
   render() {
     return (
@@ -13,8 +38,9 @@ class Submission extends React.Component {
         <div>
           <input
             type="text"
-            name="input"
+            name="username"
             maxLength="20"
+            onChange={event => this.handleChange(event.target.name, event)}
           />
         </div>
         <div>
@@ -22,12 +48,16 @@ class Submission extends React.Component {
           <div>
             <input
               type="text"
-              name="input"
+              name="entry"
               maxLength="50"
+              onChange={event => this.handleChange(event.target.name, event)}
             />
             <div>
-              <button type="submit">
-                submit
+              <button 
+                type="submit"
+                onChange={this.handleSubmit}
+              >
+                  submit
               </button>
             </div>
           </div>

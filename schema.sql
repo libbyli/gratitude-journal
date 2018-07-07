@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS gratitude_journal;
+DROP DATABASE IF EXISTS share_gratitude;
 
-CREATE DATABASE gratitude_journal;
+CREATE DATABASE share_gratitude;
 
-USE gratitude_journal;
+USE share_gratitude;
 
 CREATE TABLE users (
   user_id int NOT NULL AUTO_INCREMENT,

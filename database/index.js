@@ -1,7 +1,9 @@
 const connection = require('./config');
 
-const selectAll = (callback) => {
-  connection.query('SELECT * FROM items', (err, results, fields) => {
+connection.connect();
+
+const retrieve = (callback) => {
+  connection.query('SELECT * FROM entries', (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -10,4 +12,4 @@ const selectAll = (callback) => {
   });
 };
 
-module.exports.selectAll = selectAll;
+module.exports = { connection, retrieve };
