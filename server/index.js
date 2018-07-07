@@ -1,17 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('../database/index');
 
 const app = express();
 const port = process.env.port || 8000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '/../client/dist')));
-
-app.listen(port, () => console.log(`listening on port ${port}!`));
 
 app.get('/entries', (req, res) => {
   db.retrieve((err, results) => {
@@ -19,3 +15,12 @@ app.get('/entries', (req, res) => {
     res.status(200).json(results);
   });
 });
+
+app.post('/entries', (req, res) => {
+  db.postEntry(req, (err, results) => {
+    if (err) { res.status(500).send('Error in posting entries'); }
+    res.status(201).json(results);
+  });
+});
+
+app.listen(port, () => console.log(`listening on port ${port}!`));
