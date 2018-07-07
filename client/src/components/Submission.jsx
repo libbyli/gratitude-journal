@@ -9,6 +9,7 @@ class Submission extends React.Component {
     this.state = {
       username: '',
       entry: '',
+      public: 1,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,15 +21,29 @@ class Submission extends React.Component {
       this.setState({
         username: event.target.value,
       });
-    } else {
+    } else if (name === 'entry') {
       this.setState({
         entry: event.target.value,
+      });
+    } else if (name === 'public') {
+      this.setState({
+        public: 1,
+      });
+    } else if (name === 'private') {
+      this.setState({
+        public: 0,
       });
     }
   }
 
   handleSubmit(event) {
-    // axios.post('')
+    axios.post('/entries', {
+      username: this.state.username,
+      entry: this.state.entry,
+      public: this.state.public
+    })
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -52,15 +67,36 @@ class Submission extends React.Component {
               maxLength="50"
               onChange={event => this.handleChange(event.target.name, event)}
             />
-            <div>
-              <button 
-                type="submit"
-                onChange={this.handleSubmit}
-              >
-                  submit
-              </button>
-            </div>
           </div>
+        </div>
+        <div>
+          do you want this to be shared?
+          <div>
+            <input
+              type="radio"
+              name="public"
+              value={1}
+              checked={this.state.public === 1}
+              onChange={event => this.handleChange(event.target.name, event)}
+            />
+            <label htmlFor="public">yes</label>
+            <input
+              type="radio"
+              name="private"
+              value={0}
+              checked={this.state.public === 0}
+              onChange={event => this.handleChange(event.target.name, event)}
+            />
+            <label htmlFor="private">no</label>
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            onClick={this.handleSubmit}
+          >
+              submit
+          </button>
         </div>
       </div>
     );

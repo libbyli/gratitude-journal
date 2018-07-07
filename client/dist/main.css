@@ -1,3 +1,15 @@
 body {
   font-family: Avenir;
 }
+
+div {
+  margin-bottom: 10px;
+}
+
+input {
+  margin-right: 3px;
+}
+
+label {
+  margin-right: 8px;
+}

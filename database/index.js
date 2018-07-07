@@ -15,7 +15,12 @@ const retrieve = (callback) => {
 const postEntry = (req, callback) => {
   connection.query(`
   INSERT INTO entries (user_id, entry_text, entry_public, entry_date) 
-  VALUES (${req.body.user_id}, "${req.body.entry}", ${req.body.public}, CURDATE())`, (err, results) => {
+  VALUES (
+    (SELECT user_id FROM users WHERE username = "${req.body.username}"),
+    "${req.body.entry}",
+    ${req.body.public},
+    CURDATE())`,
+  (err, results) => {
     if (err) {
       callback(err, null);
     } else {
