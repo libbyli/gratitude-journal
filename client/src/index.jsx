@@ -1,28 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-const axios = require('axios');
+import Submission from './components/Submission.jsx';
+import Retrieval from './components/Retrieval.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
   };
 
-  componentDidMount() {
-  }
-
   render() {
     return (
       <div>
-        <h1>What are you grateful for?</h1>
-        <div>
-          <input
-            type="text"
-            name="input"
-          />
-          <button type="submit">
-            Submit
-          </button>
-        </div>
+        <h1>share gratitude</h1>
+        <div><Submission /></div>
+        <div><Retrieval /></div>
       </div>
     );
   }
