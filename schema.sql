@@ -14,11 +14,13 @@ CREATE TABLE users (
 CREATE TABLE entries (
   entry_id int NOT NULL AUTO_INCREMENT,
   user_id int NOT NULL,
-  text varchar(40) NOT NULL,
+  entry_text varchar(40) NOT NULL,
+  entry_public boolean NOT NULL,
+  entry_date date NOT NULL,
   PRIMARY KEY (entry_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 /*  Execute this file from the command line by typing:
- *    mysql -u root < schema.sql
+ *    mysql -u root -p < schema.sql
  *  to create the database and the tables.*/
