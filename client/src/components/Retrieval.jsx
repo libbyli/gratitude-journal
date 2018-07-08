@@ -4,21 +4,35 @@ import ReactDOM from 'react-dom';
 class Retrieval extends React.Component {
   constructor(props){
     super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   };
+
+  handleSubmit(buttonName, event) {
+    // if (buttonName === "one-private") {
+    //   this.
+    // }
+  }
 
   render() {
     return (
       <div>
-        tell me something i was grateful for
+        <h1>tell me . . .</h1>
         <div>
+          <button
+            type="submit"
+            name="one-private"
+            onClick={event => this.handleSubmit(event.target.name, event)}
+          >
+            something i was grateful for
+          </button>
           <button type="submit">
-            submit
+            the last five things i was grateful for
           </button>
         </div>
-        or tell me something someone else was grateful for
         <div>
           <button type="submit">
-            submit
+            something someone else was grateful for
           </button>
         </div>
       </div>

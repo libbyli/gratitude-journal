@@ -11,13 +11,10 @@ class EntrySubmission extends React.Component {
       entry: '',
       public: 1,
       success: false,
-      userSubmitted: false,
-      existingUser: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleEntrySubmit = this.handleEntrySubmit.bind(this);
-    this.handleUserSubmit = this.handleUserSubmit.bind(this);
   }
 
   handleChange(name, event) {
@@ -50,34 +47,12 @@ class EntrySubmission extends React.Component {
         success: true,
       }))
       .catch(err => console.error('handleEntrySubmit error: ', err));
+    this.props.onSubmit();
   }
 
-  handleUserSubmit() {
-    axios.get(`/users/${this.state.name}`, {
-      name: this.state.name,
-    })
-      .then((results) => {
-        if (results.data.length === 0) {
-          axios.post('/users', {
-            name: this.state.name,
-          })
-            .then(this.setState({
-              userSubmitted: true,
-            }))
-            .catch(err => console.error('handleUserSubmit post error: ', err));
-        } else {
-          this.setState({
-            existingUser: true,
-          });
-        }
-      })
-      .catch(err => console.error('handleUserSubmit get error: ', err));
-  }
-
-  showEntryField() {
-    if (this.state.userSubmitted) {
-      return (
-        <div>
+  render() {
+    return (
+      <div>
           {this.state.success 
             ? <div><strong>entry successfully posted!</strong></div>
             : null}
@@ -93,7 +68,7 @@ class EntrySubmission extends React.Component {
             </div>
           </div>
           <div>
-            do you want this to be shared?
+            do you want this be shareable to the world?
             <div>
               <input
                 type="radio"
@@ -122,37 +97,6 @@ class EntrySubmission extends React.Component {
             </button>
           </div>
         </div>
-      );
-    }
-    return (
-      <div>
-        {this.state.existingUser
-          ? <div>this username is already in use, please choose another.</div>
-          : null}
-        <div>choose a username!</div>
-        <div>
-          <input
-            type="text"
-            name="name"
-            maxLength="20"
-            onChange={event => this.handleChange(event.target.name, event)}
-          />
-        </div>
-        <div>
-          <button
-            type="submit"
-            onClick={this.handleUserSubmit}
-          >
-              submit
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      this.showEntryField()
     );
   }
 }
