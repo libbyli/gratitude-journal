@@ -6,9 +6,9 @@ USE share_gratitude;
 
 CREATE TABLE users (
   user_id int NOT NULL AUTO_INCREMENT,
-  username varchar(20) NOT NULL,
+  user_name varchar(20) NOT NULL,
   PRIMARY KEY (user_id),
-  UNIQUE (username)
+  UNIQUE (user_name)
 );
 
 CREATE TABLE entries (

@@ -12,11 +12,21 @@ const retrieve = (callback) => {
   });
 };
 
-const postEntry = (req, callback) => {
+const retrieveUser = (username, callback) => {
+  connection.query(`SELECT user_id FROM users WHERE user_name="${username}"`, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const addEntry = (req, callback) => {
   connection.query(`
   INSERT INTO entries (user_id, entry_text, entry_public, entry_date) 
   VALUES (
-    (SELECT user_id FROM users WHERE username = "${req.body.username}"),
+    (SELECT user_id FROM users WHERE user_name = "${req.body.name}"),
     "${req.body.entry}",
     ${req.body.public},
     CURDATE())`,
@@ -29,4 +39,23 @@ const postEntry = (req, callback) => {
   });
 };
 
-module.exports = { connection, retrieve, postEntry };
+const addUser = (req, callback) => {
+  connection.query(`
+  INSERT INTO users (user_name)
+  VALUES ("${req.body.name}")`,
+  (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+module.exports = {
+  connection,
+  retrieve,
+  retrieveUser,
+  addEntry,
+  addUser,
+};

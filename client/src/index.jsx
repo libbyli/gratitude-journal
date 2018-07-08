@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Submission from './components/Submission.jsx';
+import EntrySubmission from './components/EntrySubmission.jsx';
 import Retrieval from './components/Retrieval.jsx';
 
 class App extends React.Component {
@@ -12,8 +12,8 @@ class App extends React.Component {
     return (
       <div>
         <h1>share gratitude</h1>
-        <div><Submission /></div>
-        <div><Retrieval /></div>
+        <div><EntrySubmission /></div>
+        {/* <div><Retrieval /></div> */}
       </div>
     );
   }
