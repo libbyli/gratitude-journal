@@ -23,22 +23,28 @@ class UserSubmission extends React.Component {
     }
   }
 
-  handleUserSubmit() {
+  handleUserSubmit(buttonName, event) {
     axios.post('/users', {
       name: this.state.name
     })
-      .then()
-      .catch((error) => {
-        if (error.response.status === 500) {
-          console.log('catch block')
+      .then((response) => {
+        if (response.data === 'Duplicate user') {
+          if (!this.state.duplicateUser) {
+            this.setState({
+              duplicateUser: true,
+            });
+          }
+        } else if (response.data === 'User added') {
+          this.props.onSubmit(buttonName, event);
         }
-      });
+      })
+      .catch(error => console.error(error));
   }
 
   render() {
     return (
       <div>
-        {this.state.existingUser
+        {this.state.duplicateUser
           ? 
           (
             <div>
@@ -48,7 +54,10 @@ class UserSubmission extends React.Component {
             </div>
           )
           : null}
-        <div>choose a username!</div>
+        <div>
+          please fill in your username.<br />
+          if you don&#39;t have one, type one in and click submit.
+        </div>
         <div>
           <input
             type="text"
@@ -60,7 +69,8 @@ class UserSubmission extends React.Component {
         <div>
           <button
             type="submit"
-            onClick={this.handleUserSubmit}
+            name="user-submit"
+            onClick={event => this.handleUserSubmit(event.target.name, event)}
           >
               submit
           </button>

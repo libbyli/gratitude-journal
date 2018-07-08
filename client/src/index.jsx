@@ -14,18 +14,26 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   };
 
-  onSubmit() {
-    this.setState({
-      userSubmitted: true,
-    });
+  onSubmit(buttonName, event) {
+    if (buttonName === "user-submit") {
+      this.setState({
+        userSubmitted: true,
+      });
+    }
   }
 
   render() {
     return (
       <div>
         <h1>share gratitude</h1>
-        <div><UserSubmission /></div>
-        {this.state.userSubmitted ? null: <div><EntrySubmission onSubmit={this.onSubmit}/></div>}
+        {this.state.userSubmitted 
+          ? null
+          : <div><UserSubmission onSubmit={this.onSubmit}/></div>
+        }
+        {this.state.userSubmitted 
+          ? <div><EntrySubmission onSubmit={this.onSubmit}/></div>
+          : null
+        }
         <div><Retrieval /></div>
       </div>
     );

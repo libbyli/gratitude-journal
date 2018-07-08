@@ -43,9 +43,9 @@ app.post('/entries', (req, res) => {
 app.post('/users', (req, res) => {
   db.addUser(req, (err, results) => {
     if (err) {
-      res.status(500).send('Error in adding user');
+      res.status(201).send('Duplicate user');
     } else {
-      res.status(201).json(results);
+      res.status(201).json('User added');
     }
   });
 });
