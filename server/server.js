@@ -9,9 +9,9 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
-app.get('/entries/:username', (req, res) => {
-  let username = req.params.username;
-  db.retrieve(username, (err, results) => {
+app.get('/entries/:id', (req, res) => {
+  let id = req.params.id;
+  db.retrieveUserEntries(id, (err, results) => {
     if (err) {
       res.status(500).json('Error in retrieving entries');
     } else {
@@ -24,7 +24,7 @@ app.get('/users/:id', (req, res) => {
   let user_id = req.params.id;
   db.retrieveUser(user_id, (err, results) => {
     if (err) {
-      res.status(500).json('Error in retrieving user');
+      res.status(200).json('User not found');
     } else {
       res.status(200).json(results);
     }
@@ -36,7 +36,7 @@ app.post('/entries', (req, res) => {
     if (err) {
       res.status(500).json('Error in posting entry');
     } else {
-      res.status(201).json(results);
+      res.status(201).json(results.insertId);
     }
   });
 });

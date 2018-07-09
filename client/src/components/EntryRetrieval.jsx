@@ -1,27 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class EntryRetrieval extends React.Component {
-  constructor(props){
-    super(props);
+const axios = require('axios');
+const moment = require('moment');
 
+class EntryRetrieval extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      entries: [],
+      oneSelfClicked: false,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
-  };
+  }
 
   handleSubmit(buttonName, event) {
-    if (buttonName === "one-private") {
-      axios.get()
+    if (buttonName === "one-self") {
+      axios.get(`/entries/${this.props.id}`)
+        .then((response) => {
+          this.setState({
+            entries: response.data,
+            oneSelfClicked: true,
+          });
+        })
+        .catch(error => console.error(error));
     }
+  }
+
+  renderRandomUserEntry() {
+    const entry = this.state.entries[Math.floor(Math.random() * this.state.entries.length)];
+    const entryText = entry.entry_text;
+    const entryDate = entry.entry_date;
+    return (
+      <div>
+        you were grateful for {entryText} on {moment(`${entryDate}`).format("dddd, MMMM Do YYYY").toLowerCase()}
+      </div>
+    )
   }
 
   render() {
     return (
       <div>
-        <h2>tell me . . .</h2>
+        <h3>tell me . . .</h3>
+        {this.state.oneSelfClicked
+          ? this.renderRandomUserEntry()
+          : null
+        }
         <div>
           <button
             type="submit"
-            name="one-private"
+            name="one-self"
             onClick={event => this.handleSubmit(event.target.name, event)}
           >
             something i was grateful for

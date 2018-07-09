@@ -2,8 +2,8 @@ const connection = require('./config');
 
 connection.connect();
 
-const retrieve = (callback) => {
-  connection.query('SELECT * FROM entries', (err, results) => {
+const retrieveUserEntries = (user_id, callback) => {
+  connection.query(`SELECT * FROM entries WHERE user_id = ${user_id}`, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -26,7 +26,7 @@ const addEntry = (req, callback) => {
   connection.query(`
   INSERT INTO entries (user_id, entry_text, entry_public, entry_date) 
   VALUES (
-    (SELECT user_id FROM users WHERE user_name = "${req.body.name}"),
+    ${req.body.id},
     "${req.body.entry}",
     ${req.body.public},
     CURDATE())`,
@@ -54,7 +54,7 @@ const addUser = (req, callback) => {
 
 module.exports = {
   connection,
-  retrieve,
+  retrieveUserEntries,
   retrieveUser,
   addEntry,
   addUser,
