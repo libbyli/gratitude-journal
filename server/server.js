@@ -9,11 +9,22 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
-app.get('/entries/:id', (req, res) => {
-  let id = req.params.id;
-  db.retrieveUserEntries(id, (err, results) => {
+app.get('/entries/all/:userId', (req, res) => {
+  let userId = req.params.userId;
+  db.retrieveUserEntries(userId, (err, results) => {
     if (err) {
-      res.status(500).json('Error in retrieving entries');
+      res.status(500).json('Error in retrieving user entries');
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+app.get('/entries/public/:userId', (req, res) => {
+  let userId = req.params.userId;
+  db.retrievePublicEntries(userId, (err, results) => {
+    if (err) {
+      res.status(500).json('Error in retrieving public entries');
     } else {
       res.status(200).json(results);
     }

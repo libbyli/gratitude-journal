@@ -63,16 +63,24 @@ class EntrySubmission extends React.Component {
   showGreeting() {
     if (this.state.retrievedName !== null) {
       return (
-        <div><h3>welcome back, {this.state.retrievedName}!</h3></div>
-      )
+        <div>
+          <h3>
+            welcome back, {this.state.retrievedName}!<br />
+            what are you grateful for today?
+          </h3>
+        </div>
+      );
     }
     return (
       <div>
-        <h3>welcome, {this.props.name}!</h3>
+        <h3>
+          welcome, {this.props.name}!<br/>
+          what are you grateful for today?
+        </h3>
         <div>your user ID is {this.props.latestId}. you will need this to login in the future.</div>
       </div>
-      )
-    }
+    );
+  }
 
   render() {
     return (
@@ -93,7 +101,7 @@ class EntrySubmission extends React.Component {
           </div>
         </div>
         <div>
-          do you want this be shareable to the world?
+          do you want this be shared with others?
           <div>
             <input
               type="radio"
