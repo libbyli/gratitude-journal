@@ -20,6 +20,7 @@ class UserSubmission extends React.Component {
       this.setState({
         name: event.target.value,
       });
+      this.props.onUserEntry(event.target.value, event);
     }
   }
 

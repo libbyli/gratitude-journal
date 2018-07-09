@@ -8,11 +8,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: '',
       userSubmitted: false,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.onUserEntry = this.onUserEntry.bind(this);
   };
+
+  onUserEntry(name, event) {
+    this.setState({
+      name: name,
+    });
+    console.log(this.state.name)
+  }
 
   onSubmit(buttonName, event) {
     if (buttonName === "user-submit") {
@@ -28,13 +37,16 @@ class App extends React.Component {
         <h1>share gratitude</h1>
         {this.state.userSubmitted 
           ? null
-          : <div><UserSubmission onSubmit={this.onSubmit}/></div>
+          : <div><UserSubmission onSubmit={this.onSubmit} onUserEntry={this.onUserEntry}/></div>
         }
         {this.state.userSubmitted 
-          ? <div><EntrySubmission onSubmit={this.onSubmit}/></div>
+          ? <div><EntrySubmission name={this.state.name}/></div>
           : null
         }
-        <div><Retrieval /></div>
+        {this.state.userSubmitted
+          ? <div><Retrieval /></div>
+          : null
+        }
       </div>
     );
   }

@@ -7,7 +7,6 @@ class EntrySubmission extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       entry: '',
       public: 1,
       success: false,
@@ -18,11 +17,7 @@ class EntrySubmission extends React.Component {
   }
 
   handleChange(name, event) {
-    if (name === 'name') {
-      this.setState({
-        name: event.target.value,
-      });
-    } else if (name === 'entry') {
+    if (name === 'entry') {
       this.setState({
         entry: event.target.value,
       });
@@ -39,7 +34,7 @@ class EntrySubmission extends React.Component {
 
   handleEntrySubmit() {
     axios.post('/entries', {
-      name: this.state.name,
+      name: this.props.name,
       entry: this.state.entry,
       public: this.state.public
     })
@@ -47,7 +42,6 @@ class EntrySubmission extends React.Component {
         success: true,
       }))
       .catch(err => console.error('handleEntrySubmit error: ', err));
-    this.props.onSubmit();
   }
 
   render() {
