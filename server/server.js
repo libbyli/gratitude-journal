@@ -46,7 +46,7 @@ app.post('/users', (req, res) => {
     if (err) {
       res.status(201).json('Duplicate user');
     } else {
-      res.status(201).json('User added');
+      res.status(201).json(results.insertId);
     }
   });
 });

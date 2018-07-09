@@ -47,27 +47,32 @@ class EntrySubmission extends React.Component {
 
   handleEntrySubmit() {
     axios.post('/entries', {
-      name: this.props.name,
+      id: parseInt(this.props.id, 10),
       entry: this.state.entry,
       public: this.state.public
     })
-      .then(this.setState({
-        success: true,
-      }))
+      .then((response) => {
+        this.setState({
+          success: true,
+        });
+        this.props.onEntrySubmission(response.data);
+      })
       .catch(err => console.error('handleEntrySubmit error: ', err));
   }
 
   showGreeting() {
     if (this.state.retrievedName !== null) {
       return (
-        <h3>welcome back, {this.state.retrievedName}!</h3>
-      )
-    } else {
-      return (
-        <h3>welcome, {this.props.name}!</h3>
+        <div><h3>welcome back, {this.state.retrievedName}!</h3></div>
       )
     }
-  }
+    return (
+      <div>
+        <h3>welcome, {this.props.name}!</h3>
+        <div>your user ID is {this.props.latestId}. you will need this to login in the future.</div>
+      </div>
+      )
+    }
 
   render() {
     return (

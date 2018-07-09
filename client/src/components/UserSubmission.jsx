@@ -32,7 +32,7 @@ class UserSubmission extends React.Component {
     }
   }
 
-  handleUserSubmit(buttonName, event) {
+  handleUserSubmit(buttonName) {
     if (buttonName === 'user-submit') {
       axios.post('/users', {
         name: this.state.name
@@ -44,8 +44,9 @@ class UserSubmission extends React.Component {
                 duplicateUser: true,
               });
             }
-          } else if (response.data === 'User added') {
-            this.props.onSubmit(event);
+          } else {
+            this.props.onUserEntry('latestId', response.data);
+            this.props.onSubmit();
           }
         })
         .catch(error => console.error(error));
@@ -53,12 +54,12 @@ class UserSubmission extends React.Component {
     if (buttonName === 'userid-submit') {
       axios.get(`/users/${this.state.id}`)
         .then((response) => {
-          if (response.data.length === 0) {
+          if (response.data === 'User not found') {
             this.setState({
               userFound: false,
             });
           } else {
-            this.props.onSubmit(event);
+            this.props.onSubmit();
           }
         });
     }
@@ -108,7 +109,7 @@ class UserSubmission extends React.Component {
         <button
           type="submit"
           name="userid-submit"
-          onClick={event => this.handleUserSubmit(event.target.name, event)}
+          onClick={event => this.handleUserSubmit(event.target.name)}
         >
           submit
           </button>
