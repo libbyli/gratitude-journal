@@ -45,7 +45,7 @@ class App extends React.Component {
           : <div><UserSubmission onSubmit={this.onSubmit} onUserEntry={this.onUserEntry}/></div>
         }
         {this.state.userSubmitted 
-          ? <div><EntrySubmission name={this.state.name}/></div>
+          ? <div><EntrySubmission id={this.state.id} name={this.state.name}/></div>
           : null
         }
         {this.state.userSubmitted

@@ -10,10 +10,23 @@ class EntrySubmission extends React.Component {
       entry: '',
       public: 1,
       success: false,
+      retrievedName: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleEntrySubmit = this.handleEntrySubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.id !== null) {
+      axios.get(`/users/${this.props.id}`)
+        .then((response) => {
+          this.setState({
+            retrievedName: response.data[0].user_name
+          })
+        })
+        .catch(error => console.error(error));
+    }
   }
 
   handleChange(name, event) {
@@ -44,53 +57,66 @@ class EntrySubmission extends React.Component {
       .catch(err => console.error('handleEntrySubmit error: ', err));
   }
 
+  showGreeting() {
+    if (this.state.retrievedName !== null) {
+      return (
+        <h3>welcome back, {this.state.retrievedName}!</h3>
+      )
+    } else {
+      return (
+        <h3>welcome, {this.props.name}!</h3>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
-          {this.state.success 
-            ? <div><strong>entry successfully posted!</strong></div>
-            : null}
+        {this.state.success 
+          ? <h3>entry successfully posted!</h3>
+          : this.showGreeting()
+        }
+        <div>
+          i&apos;m grateful for...
           <div>
-            i'm grateful for...
-            <div>
-              <input
-                type="text"
-                name="entry"
-                maxLength="40"
-                onChange={event => this.handleChange(event.target.name, event)}
-              />
-            </div>
-          </div>
-          <div>
-            do you want this be shareable to the world?
-            <div>
-              <input
-                type="radio"
-                name="public"
-                value={1}
-                checked={this.state.public === 1}
-                onChange={event => this.handleChange(event.target.name, event)}
-              />
-              <label htmlFor="public">yes</label>
-              <input
-                type="radio"
-                name="private"
-                value={0}
-                checked={this.state.public === 0}
-                onChange={event => this.handleChange(event.target.name, event)}
-              />
-              <label htmlFor="private">no</label>
-            </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              onClick={this.handleEntrySubmit}
-            >
-                submit
-            </button>
+            <input
+              type="text"
+              name="entry"
+              maxLength="40"
+              onChange={event => this.handleChange(event.target.name, event)}
+            />
           </div>
         </div>
+        <div>
+          do you want this be shareable to the world?
+          <div>
+            <input
+              type="radio"
+              name="public"
+              value={1}
+              checked={this.state.public === 1}
+              onChange={event => this.handleChange(event.target.name, event)}
+            />
+            <label htmlFor="public">yes</label>
+            <input
+              type="radio"
+              name="private"
+              value={0}
+              checked={this.state.public === 0}
+              onChange={event => this.handleChange(event.target.name, event)}
+            />
+            <label htmlFor="private">no</label>
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            onClick={this.handleEntrySubmit}
+          >
+              submit
+          </button>
+        </div>
+      </div>
     );
   }
 }

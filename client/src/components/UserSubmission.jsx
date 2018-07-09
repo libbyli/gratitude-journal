@@ -10,7 +10,7 @@ class UserSubmission extends React.Component {
       id: null,
       name: '',
       duplicateUser: false,
-      existingUser: false,
+      userFound: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -55,7 +55,7 @@ class UserSubmission extends React.Component {
         .then((response) => {
           if (response.data.length === 0) {
             this.setState({
-              existingUser: false,
+              userFound: false,
             });
           } else {
             this.props.onSubmit(event);
@@ -68,17 +68,10 @@ class UserSubmission extends React.Component {
     return (
       <div>
         {this.state.duplicateUser
-          ? 
-          (
-            <div>
-              <strong>
-                sorry, that username is already in use, please choose another.
-              </strong>
-            </div>
-          )
+          ? <div><strong>sorry, that username is already in use, please choose another.</strong></div>
           : null}
         <div>
-          create your username below.
+          create a username below.
         </div>
         <div>
           <input
@@ -98,7 +91,11 @@ class UserSubmission extends React.Component {
           </button>
         </div>
         <div>
-          or enter your user ID below if you have one.
+          {this.state.userFound
+            ? null
+            : <div><strong>sorry, no user was found with that ID. please try again or create a new username.</strong></div>
+          }
+          or enter your user ID below if you have one to login.
         </div>
         <div>
           <input
