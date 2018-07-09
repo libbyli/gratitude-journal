@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Retrieval extends React.Component {
+class EntryRetrieval extends React.Component {
   constructor(props){
     super(props);
 
@@ -9,15 +9,15 @@ class Retrieval extends React.Component {
   };
 
   handleSubmit(buttonName, event) {
-    // if (buttonName === "one-private") {
-    //   this.
-    // }
+    if (buttonName === "one-private") {
+      axios.get()
+    }
   }
 
   render() {
     return (
       <div>
-        <h1>tell me . . .</h1>
+        <h2>tell me . . .</h2>
         <div>
           <button
             type="submit"
@@ -40,4 +40,4 @@ class Retrieval extends React.Component {
   }
 }
 
-export default Retrieval;
+export default EntryRetrieval;
