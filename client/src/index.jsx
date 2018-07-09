@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import UserSubmission from './components/UserSubmission.jsx';
 import EntrySubmission from './components/EntrySubmission.jsx';
-import Retrieval from './components/Retrieval.jsx';
+import EntryRetrieval from './components/EntryRetrieval.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       name: '',
       userSubmitted: false,
     };
@@ -16,24 +17,28 @@ class App extends React.Component {
     this.onUserEntry = this.onUserEntry.bind(this);
   };
 
-  onUserEntry(name, event) {
-    this.setState({
-      name: name,
-    });
-    console.log(this.state.name)
-  }
-
-  onSubmit(buttonName, event) {
-    if (buttonName === "user-submit") {
+  onUserEntry(name, value, event) {
+    if (name === 'name') {
       this.setState({
-        userSubmitted: true,
+        name: value,
+      });
+    }
+    if (name === 'id') {
+      this.setState({
+        id: value,
       });
     }
   }
 
+  onSubmit(event) {
+    this.setState({
+      userSubmitted: true,
+    });
+  }
+
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>share gratitude</h1>
         {this.state.userSubmitted 
           ? null
@@ -44,7 +49,7 @@ class App extends React.Component {
           : null
         }
         {this.state.userSubmitted
-          ? <div><Retrieval /></div>
+          ? <div><EntryRetrieval /></div>
           : null
         }
       </div>

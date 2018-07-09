@@ -7,8 +7,10 @@ class UserSubmission extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       name: '',
       duplicateUser: false,
+      existingUser: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,26 +22,46 @@ class UserSubmission extends React.Component {
       this.setState({
         name: event.target.value,
       });
-      this.props.onUserEntry(event.target.value, event);
+      this.props.onUserEntry(name, event.target.value, event);
+    }
+    if (name === 'id') {
+      this.setState({
+        id: event.target.value,
+      });
+      this.props.onUserEntry(name, event.target.value, event);
     }
   }
 
   handleUserSubmit(buttonName, event) {
-    axios.post('/users', {
-      name: this.state.name
-    })
-      .then((response) => {
-        if (response.data === 'Duplicate user') {
-          if (!this.state.duplicateUser) {
-            this.setState({
-              duplicateUser: true,
-            });
-          }
-        } else if (response.data === 'User added') {
-          this.props.onSubmit(buttonName, event);
-        }
+    if (buttonName === 'user-submit') {
+      axios.post('/users', {
+        name: this.state.name
       })
-      .catch(error => console.error(error));
+        .then((response) => {
+          if (response.data === 'Duplicate user') {
+            if (!this.state.duplicateUser) {
+              this.setState({
+                duplicateUser: true,
+              });
+            }
+          } else if (response.data === 'User added') {
+            this.props.onSubmit(event);
+          }
+        })
+        .catch(error => console.error(error));
+    }
+    if (buttonName === 'userid-submit') {
+      axios.get(`/users/${this.state.id}`)
+        .then((response) => {
+          if (response.data.length === 0) {
+            this.setState({
+              existingUser: false,
+            });
+          } else {
+            this.props.onSubmit(event);
+          }
+        });
+    }
   }
 
   render() {
@@ -56,8 +78,7 @@ class UserSubmission extends React.Component {
           )
           : null}
         <div>
-          please fill in your username.<br />
-          if you don&#39;t have one, type one in and click submit.
+          create your username below.
         </div>
         <div>
           <input
@@ -76,6 +97,24 @@ class UserSubmission extends React.Component {
               submit
           </button>
         </div>
+        <div>
+          or enter your user ID below if you have one.
+        </div>
+        <div>
+          <input
+            type="text"
+            name="id"
+            maxLength="20"
+            onChange={event => this.handleChange(event.target.name, event)}
+          />
+        </div>
+        <button
+          type="submit"
+          name="userid-submit"
+          onClick={event => this.handleUserSubmit(event.target.name, event)}
+        >
+          submit
+          </button>
       </div>
     );
   }
