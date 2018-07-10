@@ -27,6 +27,7 @@ INSERT INTO users (user_name) VALUES ("emily");
 INSERT INTO users (user_name) VALUES ("mac");
 INSERT INTO users (user_name) VALUES ("fred");
 INSERT INTO users (user_name) VALUES ("hrsf95");
+INSERT INTO users (user_name) VALUES ("");
 INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "cats purring", 1, "2018-07-07");
 INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "sushi", 1, "2018-07-07");
 INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "hot cocoa on a cold day", 1, "2018-07-08");
