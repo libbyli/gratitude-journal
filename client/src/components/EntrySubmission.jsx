@@ -55,29 +55,17 @@ class EntrySubmission extends React.Component {
         this.setState({
           success: true,
         });
-        this.props.onEntrySubmission(response.data);
       })
       .catch(err => console.error('handleEntrySubmit error: ', err));
   }
 
   showGreeting() {
-    if (this.state.retrievedName !== null) {
-      return (
-        <div>
-          <h3>
-            welcome back, {this.state.retrievedName}!<br />
-            what are you grateful for today?
-          </h3>
-        </div>
-      );
-    }
     return (
       <div>
         <h3>
-          welcome, {this.props.name}!<br/>
+          welcome, {this.state.retrievedName}! your user ID is {this.props.id}.<br />
           what are you grateful for today?
         </h3>
-        <div>your user ID is {this.props.latestId}. you will need this to login in the future.</div>
       </div>
     );
   }
@@ -86,7 +74,12 @@ class EntrySubmission extends React.Component {
     return (
       <div>
         {this.state.success 
-          ? <h3>entry successfully posted!</h3>
+          ? (
+            <h3>
+              entry successfully posted!<br />
+              write another?
+            </h3>
+          )
           : this.showGreeting()
         }
         <div>

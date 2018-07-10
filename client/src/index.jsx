@@ -9,16 +9,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       id: null,
-      latestId: null,
       name: '',
       userSubmitted: false,
-      latestEntry: null,
     };
-
     this.onSubmit = this.onSubmit.bind(this);
     this.onUserEntry = this.onUserEntry.bind(this);
-    this.onEntrySubmission = this.onEntrySubmission.bind(this);
-  };
+  }
 
   onUserEntry(name, value) {
     if (name === 'name') {
@@ -31,22 +27,11 @@ class App extends React.Component {
         id: value,
       });
     }
-    if (name === 'latestId') {
-      this.setState({
-        latestId: value,
-      });
-    }
   }
 
   onSubmit() {
     this.setState({
       userSubmitted: true,
-    });
-  }
-
-  onEntrySubmission(value) {
-    this.setState({
-      latestEntry: value,
     });
   }
 
@@ -70,9 +55,7 @@ class App extends React.Component {
             <div>
               <EntrySubmission
                 id={this.state.id}
-                latestId={this.state.latestId}
                 name={this.state.name}
-                onEntrySubmission={this.onEntrySubmission}
               />
             </div>
           )
@@ -83,7 +66,6 @@ class App extends React.Component {
           <div>
             <EntryRetrieval
               id={this.state.id}
-              latestId={this.state.latestId}
               name={this.state.name}
             />
           </div>

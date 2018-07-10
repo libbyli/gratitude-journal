@@ -17,39 +17,37 @@ class EntryRetrieval extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    axios.get(`/entries/all/${this.props.id}`)
-      .then((response) => {
-        this.setState({
-          userEntries: response.data,
-        });
-      })
-      .catch(error => console.error(error));
-    axios.get(`/entries/public/${this.props.id}`)
-      .then((response) => {
-        this.setState({
-          publicEntries: response.data,
-        });
-      })
-      .catch(error => console.error(error));
-  }
-
   handleSubmit(buttonName) {
-    if (buttonName === "one-self") {
-      this.setState({
-        oneSelfClicked: true,
-        lastFiveClicked: false,
-        oneRandomClicked: false,
-      });
-    }
-    if (buttonName === "last-five") {
-      this.setState({
-        oneSelfClicked: false,
-        lastFiveClicked: true,
-        oneRandomClicked: false,
-      });
+    if (buttonName === "one-self" || buttonName === "last-five") {
+      axios.get(`/entries/all/${this.props.id}`)
+        .then((response) => {
+          this.setState({
+            userEntries: response.data,
+          });
+        })
+        .catch(error => console.error(error));
+      if (buttonName === "one-self") {
+        this.setState({
+          oneSelfClicked: true,
+          lastFiveClicked: false,
+          oneRandomClicked: false,
+        });
+      } else {
+        this.setState({
+          oneSelfClicked: false,
+          lastFiveClicked: true,
+          oneRandomClicked: false,
+        });
+      }
     }
     if (buttonName === "one-random") {
+      axios.get(`/entries/public/${this.props.id}`)
+        .then((response) => {
+          this.setState({
+            publicEntries: response.data,
+          });
+        })
+        .catch(error => console.error(error));
       this.setState({
         oneSelfClicked: false,
         lastFiveClicked: false,
@@ -60,13 +58,13 @@ class EntryRetrieval extends React.Component {
 
   renderOneUserEntry() {
     const entry = this.state.userEntries[Math.floor(Math.random() * this.state.userEntries.length)];
-    const entryText = entry.entry_text;
-    const entryDate = entry.entry_date;
+    const entryText = entry ? entry.entry_text : null;
+    const entryDate = entry ? entry.entry_date : null;
     return (
       <div>
         you were grateful for {entryText} on {moment(`${entryDate}`).format("dddd, MMMM Do YYYY").toLowerCase()}
       </div>
-    )
+    );
   }
 
   renderLastFiveUserEntries() {
@@ -83,9 +81,11 @@ class EntryRetrieval extends React.Component {
 
   renderRandomUserEntry() {
     const randomEntry = this.state.publicEntries[Math.floor(Math.random() * this.state.publicEntries.length)];
+    const randomEntryName = randomEntry ? randomEntry.entry_name : null;
+    const randomEntryText = randomEntry ? randomEntry.entry_text : null;
     return (
       <div>
-        {randomEntry.user_name} was grateful for {randomEntry.entry_text}
+        {randomEntryName} was grateful for {randomEntryText}
       </div>
     );
   }

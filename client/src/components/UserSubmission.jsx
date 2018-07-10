@@ -45,7 +45,7 @@ class UserSubmission extends React.Component {
               });
             }
           } else {
-            this.props.onUserEntry('latestId', response.data);
+            this.props.onUserEntry('id', response.data);
             this.props.onSubmit();
           }
         })
