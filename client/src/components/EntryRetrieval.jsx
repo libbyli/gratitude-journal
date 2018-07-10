@@ -99,47 +99,45 @@ class EntryRetrieval extends React.Component {
     return (
       <div>
         <h3>tell me . . .</h3>
-          <button
-            className="btn btn-outline-secondary"
-            type="submit"
-            name="one-self"
-            onClick={event => this.handleSubmit(event.target.name)}
-          >
-            something i was<br />
-            grateful for
-          </button>
-          <button
-            className="btn btn-outline-secondary"
-            type="submit"
-            name="last-five"
-            onClick={event => this.handleSubmit(event.target.name)}
-          >
-            the last five things<br />
-            i was grateful for
-          </button>
-          <button
-            className="btn btn-outline-secondary"
-            type="submit"
-            name="one-random"
-            onClick={event => this.handleSubmit(event.target.name)}
-          >
-            something someone<br />
-            else was grateful for
-          </button>
-          <div>
-            {this.state.oneSelfClicked
-              ? <div className="border rounded">{this.renderOneUserEntry()}</div>
-              : null
-            }
-            {this.state.lastFiveClicked
-              ? <div className="border rounded">{this.renderLastFiveUserEntries()}</div>
-              : null
-            }
-            {this.state.oneRandomClicked
-              ? <div className="border rounded">{this.renderRandomUserEntry()}</div>
-              : null
-            }
-          </div>
+        <button
+          className="btn btn-outline"
+          type="submit"
+          name="one-self"
+          onClick={event => this.handleSubmit(event.target.name)}
+        >
+          something i was<br />
+          grateful for
+        </button>
+        <button
+          className="btn btn-outline"
+          type="submit"
+          name="last-five"
+          onClick={event => this.handleSubmit(event.target.name)}
+        >
+          the last five things<br />
+          i was grateful for
+        </button>
+        <button
+          className="btn btn-outline"
+          type="submit"
+          name="one-random"
+          onClick={event => this.handleSubmit(event.target.name)}
+        >
+          something someone<br />
+          else was grateful for
+        </button>
+        {this.state.oneSelfClicked
+          ? <div className="border rounded">{this.renderOneUserEntry()}</div>
+          : null
+        }
+        {this.state.lastFiveClicked
+          ? <div className="border rounded">{this.renderLastFiveUserEntries()}</div>
+          : null
+        }
+        {this.state.oneRandomClicked
+          ? <div className="border rounded">{this.renderRandomUserEntry()}</div>
+          : null
+        }
       </div>
     );
   }

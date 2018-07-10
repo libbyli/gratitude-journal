@@ -1,5 +1,6 @@
 body {
   font-family: Avenir;
+  color: #686161;
 }
 
 .input-group.mb-3 {
@@ -15,12 +16,22 @@ input {
   margin-right: 3px;
 }
 
+input[type=radio] {
+  min-height: 20px;
+  padding-left: 30px;
+}
+
 label {
   margin-right: 8px;
 }
 
-button {
+.btn {
   margin-right: 10px;
+  background-color: #fbf0f0;
+}
+
+.btn:hover {
+  background-color: #dfd3d3;
 }
 
 .border.rounded {

@@ -87,7 +87,7 @@ class UserSubmission extends React.Component {
           />
           <div className="input-group-append">
             <button
-              className="btn btn-outline-secondary"
+              className="btn"
               type="submit"
               name="user-submit"
               onClick={event => this.handleUserSubmit(event.target.name, event)}
@@ -113,7 +113,7 @@ class UserSubmission extends React.Component {
           />
           <div className="input-group-append">
             <button
-              className="btn btn-outline-secondary"
+              className="btn"
               type="submit"
               name="userid-submit"
               onClick={event => this.handleUserSubmit(event.target.name)}

@@ -63,12 +63,12 @@ class App extends React.Component {
         }
         {this.state.userSubmitted
           ? (
-          <div>
-            <EntryRetrieval
-              id={this.state.id}
-              name={this.state.name}
-            />
-          </div>
+            <div>
+              <EntryRetrieval
+                id={this.state.id}
+                name={this.state.name}
+              />
+            </div>
           )
           : null
         }
