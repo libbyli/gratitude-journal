@@ -22,8 +22,6 @@ CREATE TABLE entries (
 );
 
 INSERT INTO users (user_name) VALUES ("libby");
-INSERT INTO users (user_name) VALUES ("jesse");
-INSERT INTO users (user_name) VALUES ("emily");
 INSERT INTO users (user_name) VALUES ("mac");
 INSERT INTO users (user_name) VALUES ("fred");
 INSERT INTO users (user_name) VALUES ("hrsf95");
@@ -33,12 +31,10 @@ INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "
 INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "hot cocoa on a cold day", 1, "2018-07-08");
 INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "warm blankets", 1, "2018-07-08");
 INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (1, "alpacas", 1, "2018-07-09");
-INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (2, "boulders", 1, "2018-07-09");
-INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (3, "cute dogs", 1, "2018-07-09");
-INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (4, "backbone", 1, "2018-07-09");
-INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (5, "black clothes", 1, "2018-07-09");
-INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (6, "support animals", 1, "2018-07-09");
-INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (6, "staff", 1, "2018-07-09");
+INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (2, "backbone", 1, "2018-07-09");
+INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (3, "black clothes", 1, "2018-07-09");
+INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (4, "support animals", 1, "2018-07-09");
+INSERT INTO entries (user_id, entry_text, entry_public, entry_date) VALUES (4, "staff", 1, "2018-07-09");
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root -p < schema.sql
