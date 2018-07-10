@@ -54,6 +54,7 @@ class EntrySubmission extends React.Component {
       .then((response) => {
         this.setState({
           success: true,
+          entry: '',
         });
       })
       .catch(err => console.error('handleEntrySubmit error: ', err));
@@ -90,6 +91,7 @@ class EntrySubmission extends React.Component {
               type="text"
               name="entry"
               maxLength="40"
+              value={this.state.entry}
               onChange={event => this.handleChange(event.target.name, event)}
             />
           </div>
