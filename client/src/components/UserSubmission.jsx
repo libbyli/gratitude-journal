@@ -54,7 +54,7 @@ class UserSubmission extends React.Component {
     if (buttonName === 'userid-submit') {
       axios.get(`/users/${this.state.id}`)
         .then((response) => {
-          if (response.data === 'User not found') {
+          if (response.data.length === 0) {
             this.setState({
               userFound: false,
             });
@@ -69,7 +69,7 @@ class UserSubmission extends React.Component {
     return (
       <div>
         {this.state.duplicateUser
-          ? <div><strong>sorry, that username is already in use, please choose another.</strong></div>
+          ? <div><strong>sorry, that username is either already in use or you entered a blank username. please choose another.</strong></div>
           : null}
         <div>
           create a username below.
