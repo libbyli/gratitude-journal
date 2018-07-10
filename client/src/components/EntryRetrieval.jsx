@@ -97,7 +97,7 @@ class EntryRetrieval extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="col">
         <h3>tell me . . .</h3>
         <button
           className="btn btn-outline"

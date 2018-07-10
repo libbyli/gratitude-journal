@@ -50,28 +50,26 @@ class App extends React.Component {
             </div>
           )
         }
-        {this.state.userSubmitted
-          ? (
-            <div>
+        <div className="row">
+          {this.state.userSubmitted
+            ? (
               <EntrySubmission
                 id={this.state.id}
                 name={this.state.name}
               />
-            </div>
-          )
-          : null
-        }
-        {this.state.userSubmitted
-          ? (
-            <div>
+            )
+            : null
+          }
+          {this.state.userSubmitted
+            ? (
               <EntryRetrieval
                 id={this.state.id}
                 name={this.state.name}
               />
-            </div>
-          )
-          : null
-        }
+            )
+            : null
+          }
+        </div>
       </div>
     );
   }

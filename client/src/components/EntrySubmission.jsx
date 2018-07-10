@@ -73,60 +73,60 @@ class EntrySubmission extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.success 
-          ? (
-            <h3>
-              entry successfully posted!<br />
-              write another?
-            </h3>
-          )
-          : this.showGreeting()
-        }
-        <div>
-          i&apos;m grateful for...
-          <div className="input-group mb-3">
-            <input
-              className="form-control"
-              type="text"
-              name="entry"
-              maxLength="40"
-              value={this.state.entry}
-              onChange={event => this.handleChange(event.target.name, event)}
-            />
-          </div>
-        </div>
-        <div>
-          do you want this be shared with others?
+        <div className="col">
+          {this.state.success 
+            ? (
+              <h3>
+                entry successfully posted!<br />
+                write another?
+              </h3>
+            )
+            : this.showGreeting()
+          }
           <div>
-            <input
-              type="radio"
-              name="public"
-              value={1}
-              checked={this.state.public === 1}
-              onChange={event => this.handleChange(event.target.name, event)}
-            />
-            <label htmlFor="public">yes</label>
-            <input
-              type="radio"
-              name="private"
-              value={0}
-              checked={this.state.public === 0}
-              onChange={event => this.handleChange(event.target.name, event)}
-            />
-            <label htmlFor="private">no</label>
+            i&apos;m grateful for...
+            <div className="input-group mb-3">
+              <input
+                className="form-control"
+                type="text"
+                name="entry"
+                maxLength="40"
+                value={this.state.entry}
+                onChange={event => this.handleChange(event.target.name, event)}
+              />
+            </div>
+          </div>
+          <div>
+            do you want this be shared with others?
+            <div>
+              <input
+                type="radio"
+                name="public"
+                value={1}
+                checked={this.state.public === 1}
+                onChange={event => this.handleChange(event.target.name, event)}
+              />
+              <label htmlFor="public">yes</label>
+              <input
+                type="radio"
+                name="private"
+                value={0}
+                checked={this.state.public === 0}
+                onChange={event => this.handleChange(event.target.name, event)}
+              />
+              <label htmlFor="private">no</label>
+            </div>
+          </div>
+          <div>
+            <button
+              className="btn btn-outline"
+              type="submit"
+              onClick={this.handleEntrySubmit}
+            >
+                submit
+            </button>
           </div>
         </div>
-        <div>
-          <button
-            className="btn btn-outline"
-            type="submit"
-            onClick={this.handleEntrySubmit}
-          >
-              submit
-          </button>
-        </div>
-      </div>
     );
   }
 }
