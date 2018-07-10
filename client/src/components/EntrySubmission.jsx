@@ -84,8 +84,9 @@ class EntrySubmission extends React.Component {
         }
         <div>
           i&apos;m grateful for...
-          <div>
+          <div className="input-group mb-3">
             <input
+              className="form-control"
               type="text"
               name="entry"
               maxLength="40"
@@ -116,6 +117,7 @@ class EntrySubmission extends React.Component {
         </div>
         <div>
           <button
+            className="btn btn-outline-secondary"
             type="submit"
             onClick={this.handleEntrySubmit}
           >

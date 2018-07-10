@@ -54,13 +54,16 @@ class UserSubmission extends React.Component {
     if (buttonName === 'userid-submit') {
       axios.get(`/users/${this.state.id}`)
         .then((response) => {
-          if (response.data.length === 0) {
+          if (response.data.length === 0 || response.data === 'User not found') {
             this.setState({
               userFound: false,
             });
           } else {
             this.props.onSubmit();
           }
+        })
+        .catch((error) => {
+          console.log(error)
         });
     }
   }
@@ -74,22 +77,24 @@ class UserSubmission extends React.Component {
         <div>
           create a username below.
         </div>
-        <div>
+        <div className="input-group mb-3">
           <input
+            className="form-control"
             type="text"
             name="name"
             maxLength="20"
             onChange={event => this.handleChange(event.target.name, event)}
           />
-        </div>
-        <div>
-          <button
-            type="submit"
-            name="user-submit"
-            onClick={event => this.handleUserSubmit(event.target.name, event)}
-          >
-              submit
-          </button>
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="submit"
+              name="user-submit"
+              onClick={event => this.handleUserSubmit(event.target.name, event)}
+            >
+                submit
+            </button>
+          </div>
         </div>
         <div>
           {this.state.userFound
@@ -98,21 +103,25 @@ class UserSubmission extends React.Component {
           }
           or enter your user ID below if you have one to login.
         </div>
-        <div>
+        <div className="input-group mb-3">
           <input
+            className="form-control"
             type="text"
             name="id"
             maxLength="20"
             onChange={event => this.handleChange(event.target.name, event)}
           />
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="submit"
+              name="userid-submit"
+              onClick={event => this.handleUserSubmit(event.target.name)}
+            >
+              submit
+            </button>
+          </div>
         </div>
-        <button
-          type="submit"
-          name="userid-submit"
-          onClick={event => this.handleUserSubmit(event.target.name)}
-        >
-          submit
-          </button>
       </div>
     );
   }

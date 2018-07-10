@@ -2,8 +2,13 @@ body {
   font-family: Avenir;
 }
 
-/* div {
-  margin-bottom: 10px;
+.input-group.mb-3 {
+  width: 400px;
+  max-width: 100%;
+}
+
+h3 {
+  margin-top: 20px;
 }
 
 input {
@@ -16,4 +21,10 @@ label {
 
 button {
   margin-right: 10px;
-} */
+}
+
+.border.rounded {
+  width: 489px;
+  margin-top: 20px;
+  padding: 10px;
+}

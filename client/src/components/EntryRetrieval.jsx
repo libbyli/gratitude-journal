@@ -62,7 +62,7 @@ class EntryRetrieval extends React.Component {
     const entryDate = entry ? entry.entry_date : null;
     return (
       <div>
-        you were grateful for {entryText} on {moment(`${entryDate}`).format("dddd, MMMM Do YYYY").toLowerCase()}
+        you were grateful for {entryText} on {moment(`${entryDate}`, moment.ISO_8601).format("dddd, MMMM Do YYYY").toLowerCase()}
       </div>
     );
   }
@@ -73,7 +73,12 @@ class EntryRetrieval extends React.Component {
       <div>
         the last five things you were grateful for were:
         <ul>
-          {entries.map(entry => <li key={entry.entry_id}>{entry.entry_text}</li>)}
+          {entries.map(entry => (
+            <li key={entry.entry_id}>
+              {entry.entry_text} ({moment(`${entry.entry_date}`, moment.ISO_8601).format("dddd, MMMM Do YYYY").toLowerCase()})
+            </li>
+          ))
+          }
         </ul>
       </div>
     )
@@ -81,7 +86,7 @@ class EntryRetrieval extends React.Component {
 
   renderRandomUserEntry() {
     const randomEntry = this.state.publicEntries[Math.floor(Math.random() * this.state.publicEntries.length)];
-    const randomEntryName = randomEntry ? randomEntry.entry_name : null;
+    const randomEntryName = randomEntry ? randomEntry.user_name : null;
     const randomEntryText = randomEntry ? randomEntry.entry_text : null;
     return (
       <div>
@@ -94,43 +99,47 @@ class EntryRetrieval extends React.Component {
     return (
       <div>
         <h3>tell me . . .</h3>
-        <div>
           <button
+            className="btn btn-outline-secondary"
             type="submit"
             name="one-self"
             onClick={event => this.handleSubmit(event.target.name)}
           >
-            something i was grateful for
+            something i was<br />
+            grateful for
           </button>
           <button
+            className="btn btn-outline-secondary"
             type="submit"
             name="last-five"
             onClick={event => this.handleSubmit(event.target.name)}
           >
-            the last five things i was grateful for
+            the last five things<br />
+            i was grateful for
           </button>
-        </div>
-        <div>
           <button
+            className="btn btn-outline-secondary"
             type="submit"
             name="one-random"
             onClick={event => this.handleSubmit(event.target.name)}
           >
-            something someone else was grateful for
+            something someone<br />
+            else was grateful for
           </button>
-        </div>
-        {this.state.oneSelfClicked
-          ? this.renderOneUserEntry()
-          : null
-        }
-        {this.state.lastFiveClicked
-          ? this.renderLastFiveUserEntries()
-          : null
-        }
-        {this.state.oneRandomClicked
-          ? this.renderRandomUserEntry()
-          : null
-        }
+          <div>
+            {this.state.oneSelfClicked
+              ? <div className="border rounded">{this.renderOneUserEntry()}</div>
+              : null
+            }
+            {this.state.lastFiveClicked
+              ? <div className="border rounded">{this.renderLastFiveUserEntries()}</div>
+              : null
+            }
+            {this.state.oneRandomClicked
+              ? <div className="border rounded">{this.renderRandomUserEntry()}</div>
+              : null
+            }
+          </div>
       </div>
     );
   }
