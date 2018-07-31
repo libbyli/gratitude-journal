@@ -11,6 +11,6 @@ npm run build
 npm start
 ```
 
-3. Start mongodb if it is not already running.
-4. Create a config.js file based on config-example to connect to mongodb.
+3. Create a config.js file based on config-example to connect to mongodb.
+4. Start mongodb if it is not already running.
 5. Navigate to http://localhost:8000
