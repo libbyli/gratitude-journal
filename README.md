@@ -12,4 +12,5 @@ npm start
 ```
 
 3. Start mongodb if it is not already running.
-4. Navigate to http://localhost:8000
+4. Create a config.js file based on config-example to connect to mongodb.
+5. Navigate to http://localhost:8000
